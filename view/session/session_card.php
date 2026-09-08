@@ -46,6 +46,17 @@ require_once DOL_DOCUMENT_ROOT . '/contrat/class/contrat.class.php';
 require_once __DIR__ . '/../../../saturne/class/saturnesignature.class.php';
 
 // Load DoliMeet libraries.
+require_once __DIR__ . '/../../class/session.class.php';
+
+// $objectType vient de l'URL et sert a construire les chemins d'inclusion ci-dessous : sans ce
+// controle, un type absent ou inconnu fait echouer le require_once et laisse une page blanche
+if (!in_array($objectType, Session::SESSION_TYPES, true)) {
+    $langs->load('errors');
+    setEventMessages($langs->trans('ErrorBadValueForParameter', $objectType, 'object_type'), null, 'errors');
+    header('Location: ' . dol_buildpath('/custom/dolimeet/dolimeetindex.php?mainmenu=dolimeet', 1));
+    exit;
+}
+
 require_once __DIR__ . '/../../lib/dolimeet_' . $objectType . '.lib.php';
 require_once __DIR__ . '/../../class/' . $objectType . '.class.php';
 

@@ -263,6 +263,12 @@ class Session extends SaturneObject
     public $fk_contrat;
 
     /**
+     * Session types the module handles. Seules ces valeurs sont acceptees pour le parametre
+     * d'URL object_type, qui sert a construire des chemins d'inclusion.
+     */
+    public const SESSION_TYPES = ['meeting', 'trainingsession', 'audit'];
+
+    /**
      * @var array Session types
      */
     public array $sessionTypes = [
